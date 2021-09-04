@@ -44,17 +44,11 @@ def test_numfiles():
 
 def test_get_file_paths():
     # Make some test images to use as files
-    make_test_images(
-        [(100, 200), (200, 300), (400, 400), (420, 629)],
-        ["blue", "red", "yellow", "green"],
-    )
     paths = utils.get_file_paths("tests/images")
-    assert paths == [
-        "tests/images/3.png",
-        "tests/images/1.png",
-        "tests/images/0.png",
-        "tests/images/2.png",
-    ]
+    assert "tests/images/3.png" in paths
+    assert "tests/images/1.png" in paths
+    assert "tests/images/0.png" in paths
+    assert "tests/images/2.png" in paths
 
 
 def test_max_image_size():
