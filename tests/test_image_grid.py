@@ -1,13 +1,9 @@
 from app.image_grid import ImageGrid
 
-from .test_utils import delete_files, make_test_images
+from .test_utils import delete_files
 
 
 def test_image_grid():
-    make_test_images(
-        [(100, 200), (200, 300), (400, 400), (420, 629)],
-        ["blue", "red", "yellow", "green"],
-    )
     # instantiation
     image_grid = ImageGrid(
         image_directory="tests/images",
