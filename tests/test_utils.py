@@ -68,39 +68,39 @@ def test_max_image_size():
     max_size = utils.get_max_image_size("tests/images")
     assert max_size == (420, 629)
     # Tare down, delete images
-    delete_files("tests/images/*.png")
+    #delete_files("tests/images/*.png")
 
 
-def test_resize_images():
-    # Make some test images
-    make_test_images(
-        [(100, 200), (200, 300), (400, 400), (420, 629)],
-        ["blue", "red", "yellow", "green"],
-    )
-    utils.resize_images(
-        directory_of_original_images="tests/images",
-        output_directory="tests/images/resized_images",
-    )
+# def test_resize_images():
+#     # Make some test images
+#     make_test_images(
+#         [(100, 200), (200, 300), (400, 400), (420, 629)],
+#         ["blue", "red", "yellow", "green"],
+#     )
+#     utils.resize_images(
+#         directory_of_original_images="tests/images",
+#         output_directory="tests/images/resized_images",
+#     )
 
-    # Assert that 4 new image files were created
-    file_paths = [
-        os.path.join("tests/images/resized_images", filename)
-        for filename in os.listdir("tests/images/resized_images")
-        if filename.endswith(".png")
-    ]
-    assert file_paths
-    assert len(file_paths) == 4
+#     # Assert that 4 new image files were created
+#     file_paths = [
+#         os.path.join("tests/images/resized_images", filename)
+#         for filename in os.listdir("tests/images/resized_images")
+#         if filename.endswith(".png")
+#     ]
+#     assert file_paths
+#     assert len(file_paths) == 4
 
-    # Assert that all the images are the same size, the height and width
-    # should be the same value as our largest image from the test images we
-    # created, E.G. 420x629 should square off to 629x629
-    for i in file_paths:
-        img = Image.open(i, "r")
-        assert img.size == (629, 629)
+#     # Assert that all the images are the same size, the height and width
+#     # should be the same value as our largest image from the test images we
+#     # created, E.G. 420x629 should square off to 629x629
+#     for i in file_paths:
+#         img = Image.open(i, "r")
+#         assert img.size == (629, 629)
 
     # Tare down
-    delete_files("tests/images/*.png")
-    delete_files("tests/images/resized_images/*.png")
+    #delete_files("tests/images/*.png")
+    #delete_files("tests/images/resized_images/*.png")
 
 
 def test_calculate_m():
