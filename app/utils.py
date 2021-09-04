@@ -54,7 +54,12 @@ def get_max_image_size(directory):
     return max(sizes)
 
 
-def resize_images(directory_of_original_images, output_directory):
+def resize_images(
+    directory_of_original_images,
+    output_directory,
+    individual_image_resize_offset,
+    custom_dimention=None,
+):
     """Takes all the images from a directory and saves them as uniformed
     resized images. All the images need to be the same square size to
     fit in a large grid together.
@@ -63,6 +68,8 @@ def resize_images(directory_of_original_images, output_directory):
         directory_of_original_images (string): The path to the directory
         containing the original images.
         output_directory (string): The path to save the resized images in.
+        custom_dimesions (tuple): Force the resized image to match a custom
+        dimension, E.G. 350 for a 350x350 image resize
     """
     file_paths = [
         os.path.join(directory_of_original_images, filename)
@@ -71,7 +78,9 @@ def resize_images(directory_of_original_images, output_directory):
     ]
 
     # Get the largest image size
-    max_img_h = get_max_image_size(directory_of_original_images)[1]
+    max_img_h = (
+        custom_dimention or get_max_image_size(directory_of_original_images)[1]
+    )
 
     for i in file_paths:
         # Each book image will be placed on a canvas of the max size.
@@ -82,7 +91,8 @@ def resize_images(directory_of_original_images, output_directory):
         # use largest height to make the canvas square
         background = Image.new("RGB", (max_img_h, max_img_h), (255, 255, 255))
         bg_w, bg_h = background.size
-        offset = ((bg_w - img_w) // 2, (bg_h - img_h) // 2)
+        off_x, off_y = individual_image_resize_offset
+        offset = ((bg_w - img_w) // off_x, (bg_h - img_h) // off_y)
         background.paste(img, offset)
         background.save(f"{output_directory}/{filename}")
 

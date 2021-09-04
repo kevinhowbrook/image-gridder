@@ -8,7 +8,10 @@ from . import utils
 class ImageGrid:
     def __init__(
         self,
-        final_image_border_width=0,
+        custom_dimension_for_single_items=None,
+        image_border_width=0,
+        image_border_colour=(255, 255, 255),
+        individual_image_resize_offset=None,
         final_image_name="final.jpg",
         final_image_path="./",
         resized_image_directory="images/resized",
@@ -22,9 +25,14 @@ class ImageGrid:
         self.resized_image_directory = resized_image_directory
         self.final_image_path = final_image_path
         self.final_image_name = final_image_name
-        self.final_image_border_width = final_image_border_width
+        self.image_border_width = image_border_width
         self.numfiles = utils.numfiles(image_directory)
+        self.individual_image_resize_offset = individual_image_resize_offset
         self.max_image_size = utils.get_max_image_size(image_directory)[1]
+        self.image_border_colour = (image_border_colour,)
+        self.custom_dimension_for_single_items = (
+            custom_dimension_for_single_items
+        )
         # TODO - rename m
         self.m = math.sqrt(utils.grid(self.numfiles, utils.calculate_m()))
         self.canvas_size = int(self.m) * self.max_image_size
@@ -38,6 +46,8 @@ class ImageGrid:
         utils.resize_images(
             directory_of_original_images=self.image_directory,
             output_directory=self.resized_image_directory,
+            custom_dimention=self.custom_dimension_for_single_items,
+            individual_image_resize_offset=self.individual_image_resize_offset,
         )
         # return the list of files we resized
         return utils.get_file_paths(self.resized_image_directory)
@@ -62,8 +72,8 @@ class ImageGrid:
             self.canvas.paste(image, points[0])
             ImageDraw.Draw(self.canvas).line(
                 (points[0], points[1], points[2], points[3], points[0]),
-                fill="white",
-                width=self.final_image_border_width,
+                fill=self.image_border_colour,
+                width=self.image_border_width,
             )
             k += 1
         self.canvas.save(
