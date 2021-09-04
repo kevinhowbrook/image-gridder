@@ -4,8 +4,38 @@ from PIL import Image, ImageDraw
 
 from . import utils
 
+# TODO: Explain HOW IT WORKS
+
 
 class ImageGrid:
+    """The main image grip class to generate the final image of combined,
+    resized tiles:
+
+    Args:
+        custom_dimension_for_single_items (int): This will override the size
+            that images are resized as individual tiles, useful if you have
+            lots of varied image sizes
+        image_border_width (int): Applys a px width border to the single tiles
+        image_border_colour (tuple): RGB values, E.G. (255, 255, 255)
+        individual_image_resize_offset (tuple): This is pretty experimental,
+            without it, individual resized images anchor to the top left of the
+            tile, set to (2, 2) should centre them, E.G:
+            no offset [x ][x ][x ]
+            offset (2, 2) [x][x][x]
+        final_image_name (string): The filename of the final output image, E.G
+            "file.jpg"
+        final_image_path (string): The path where to save the final image.
+        resized_image_directory (string): The path where to save the resized
+            images.
+        image_directory (string): The path where the images are you want to
+            resize and combine into a grid - this should be your original
+            images directory
+        canvas_colour (string): Colour of the main canvas
+        resize_image_canvas_colour (tuple): The background colour of the
+            individual tile images that are resized.
+
+    """
+
     def __init__(
         self,
         custom_dimension_for_single_items=None,
@@ -17,10 +47,12 @@ class ImageGrid:
         resized_image_directory="images/resized",
         image_directory="images",
         canvas_colour="white",
+        resize_image_canvas_colour=(255, 255, 255),
         *args,
         **kwargs,
     ):
         self.canvas_colour = canvas_colour
+        self.resize_image_canvas_colour = resize_image_canvas_colour
         self.image_directory = image_directory
         self.resized_image_directory = resized_image_directory
         self.final_image_path = final_image_path
@@ -48,6 +80,7 @@ class ImageGrid:
             output_directory=self.resized_image_directory,
             custom_dimention=self.custom_dimension_for_single_items,
             individual_image_resize_offset=self.individual_image_resize_offset,
+            resize_image_canvas_colour=self.resize_image_canvas_colour,
         )
         # return the list of files we resized
         return utils.get_file_paths(self.resized_image_directory)

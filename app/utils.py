@@ -30,7 +30,7 @@ def get_file_paths(directory):
     return [
         os.path.join(directory, filename)
         for filename in os.listdir(directory)
-        if filename.endswith(".png")
+        if filename.endswith(".png") or filename.endswith(".jpg")
     ]
 
 
@@ -46,7 +46,7 @@ def get_max_image_size(directory):
     file_paths = [
         os.path.join(directory, filename)
         for filename in os.listdir(directory)
-        if filename.endswith(".png")
+        if filename.endswith(".png") or filename.endswith(".jpg")
     ]
 
     # Get the largest image size
@@ -58,6 +58,7 @@ def resize_images(
     directory_of_original_images,
     output_directory,
     individual_image_resize_offset,
+    resize_image_canvas_colour,
     custom_dimention=None,
 ):
     """Takes all the images from a directory and saves them as uniformed
@@ -66,15 +67,17 @@ def resize_images(
 
     Args:
         directory_of_original_images (string): The path to the directory
-        containing the original images.
+            containing the original images.
         output_directory (string): The path to save the resized images in.
         custom_dimesions (tuple): Force the resized image to match a custom
-        dimension, E.G. 350 for a 350x350 image resize
+            dimension, E.G. 350 for a 350x350 image resize,
+        resize_image_canvas_colour (tuple): The background colour of the
+            resized image
     """
     file_paths = [
         os.path.join(directory_of_original_images, filename)
         for filename in os.listdir(directory_of_original_images)
-        if filename.endswith(".png")
+        if filename.endswith(".png") or filename.endswith(".jpg")
     ]
 
     # Get the largest image size
@@ -89,11 +92,16 @@ def resize_images(
         img_w, img_h = img.size
         filename = img.filename.split("/")[-1]
         # use largest height to make the canvas square
-        background = Image.new("RGB", (max_img_h, max_img_h), (255, 255, 255))
+        background = Image.new(
+            "RGB", (max_img_h, max_img_h), resize_image_canvas_colour
+        )
         bg_w, bg_h = background.size
-        off_x, off_y = individual_image_resize_offset
-        offset = ((bg_w - img_w) // off_x, (bg_h - img_h) // off_y)
-        background.paste(img, offset)
+        if individual_image_resize_offset:
+            off_x, off_y = individual_image_resize_offset
+            offset = ((bg_w - img_w) // off_x, (bg_h - img_h) // off_y)
+            background.paste(img, offset)
+        else:
+            background.paste(img)
         background.save(f"{output_directory}/{filename}")
 
 
