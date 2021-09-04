@@ -67,8 +67,6 @@ def test_max_image_size():
     # Get the max file size
     max_size = utils.get_max_image_size("tests/images")
     assert max_size == (420, 629)
-    # Tare down, delete images
-    #delete_files("tests/images/*.png")
 
 
 # def test_resize_images():
@@ -97,10 +95,6 @@ def test_max_image_size():
 #     for i in file_paths:
 #         img = Image.open(i, "r")
 #         assert img.size == (629, 629)
-
-    # Tare down
-    #delete_files("tests/images/*.png")
-    #delete_files("tests/images/resized_images/*.png")
 
 
 def test_calculate_m():
