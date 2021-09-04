@@ -1,0 +1,12 @@
+
+[run]
+omit = *migrations*, *tests*
+
+source = app
+
+[html]
+directory = coverage_html_report
+
+[report]
+show_missing = True
+fail_under = 100
