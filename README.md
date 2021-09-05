@@ -10,19 +10,19 @@ _See `./example_runs.py` for example code for the below images_
 
 An image grid made up from 4 equal sized images
 
-![]("./4-equal-images.jpg")
+![4](./4-equal-images.jpg)
 
 An image grid made up of 4 different sized images
 
-![]("./4-images.jpg")
+![4](./4-images.jpg)
 
 An image grid made up of 9 images
 
-![]("./9-images.jpg")
+![9](./9-images.jpg)
 
 An image grid made up of 100 equal images
 
-![]("./100-equal-images.jpg")
+![100](./100-equal-images.jpg)
 
 - [ ] Rename `m`
 - [ ] Remove all the init files and work in folder generation if it doesn exist
