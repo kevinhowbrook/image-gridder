@@ -19,7 +19,7 @@ def delete_files(dir_path):
         os.remove(f)
 
 
-def make_test_images(sizes, colours):
+def make_test_images(sizes, colours, path="tests/images/"):
     """Helper method for creating images to test with,
     saves them to tests/images
 
@@ -30,7 +30,7 @@ def make_test_images(sizes, colours):
     for i, v in enumerate(sizes):
         colour = random.choice(colours)
         image = Image.new("RGB", v, color=colour)
-        image.save(f"tests/images/{i}.png", format="png")
+        image.save(f"{path}{i}.png", format="png")
 
 
 def test_numfiles():
