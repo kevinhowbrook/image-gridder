@@ -4,8 +4,6 @@ from PIL import Image, ImageDraw
 
 from . import utils
 
-# TODO: Explain HOW IT WORKS
-
 
 class ImageGrid:
     """The main image grip class to generate the final image of combined,
