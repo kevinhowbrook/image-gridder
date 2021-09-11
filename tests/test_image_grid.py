@@ -10,6 +10,7 @@ def test_image_grid():
         final_image_path="tests/images",
         final_image_name="final_test_image.jpg",
         resized_image_directory="tests/images/resized_images",
+        canvas_colour="white",
     )
     # resize all our images
     resized_images = image_grid.resize_images()

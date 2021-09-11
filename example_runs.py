@@ -27,6 +27,7 @@ if __name__ == "__main__":
         resize_image_canvas_colour=(125, 125, 125),
         canvas_colour="white",
         final_image_name="4-images.jpg",
+        margin=100,
     )
     # resize all our images
     resized_images = image_grid.resize_images()
@@ -112,12 +113,13 @@ if __name__ == "__main__":
     # instantiation
     image_grid = ImageGrid(
         image_directory="images",
-        image_border_width=5,
+        image_border_width=10,
         individual_image_resize_offset=(2, 2),
-        image_border_colour=(0, 0, 0),
+        image_border_colour=(255, 255, 255),
         resize_image_canvas_colour=(125, 125, 125),
         canvas_colour="white",
         final_image_name="100-equal-images.jpg",
+        margin=20,
     )
     # resize all our images
     resized_images = image_grid.resize_images()

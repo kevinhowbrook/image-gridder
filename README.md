@@ -52,3 +52,5 @@ An image grid made up of 100 equal images
 TODOS
 
 - [ ] Fill mode (images zoomed in to fill area)
+- [ ] Testing images with numpy
+- [ ] Canvas margins

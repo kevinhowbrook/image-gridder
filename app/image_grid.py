@@ -31,11 +31,13 @@ class ImageGrid:
         canvas_colour (string): Colour of the main canvas
         resize_image_canvas_colour (tuple): The background colour of the
             individual tile images that are resized.
+        margin: the overall margin on the final image
 
     """
 
     def __init__(
         self,
+        margin=0,
         custom_dimension_for_single_items=None,
         image_border_width=0,
         image_border_colour=(255, 255, 255),
@@ -50,6 +52,7 @@ class ImageGrid:
         **kwargs,
     ):
         self.canvas_colour = canvas_colour
+        self.margin = margin
         self.resize_image_canvas_colour = resize_image_canvas_colour
         self.image_directory = image_directory
         self.resized_image_directory = resized_image_directory
@@ -107,6 +110,21 @@ class ImageGrid:
                 width=self.image_border_width,
             )
             k += 1
-        self.canvas.save(
+
+        # Apply margin
+        frame = Image.new(
+            "RGB",
+            (self.canvas_size + self.margin, self.canvas_size + self.margin),
+            color=self.canvas_colour,
+        )
+        img_w, img_h = self.canvas.size
+        bg_w, bg_h = frame.size
+        offset = ((bg_w - img_w) // 2, (bg_h - img_h) // 2)
+
+        frame.paste(self.canvas, offset)
+        frame.save(
             f"{self.final_image_path}/{self.final_image_name}"
         )  # save the image.
+        # self.canvas.save(
+        #     f"{self.final_image_path}/{self.final_image_name}"
+        # )  # save the image.
