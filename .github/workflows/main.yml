@@ -39,7 +39,7 @@ jobs:
       #----------------------------------------------
       - name: Export requirements to file
         run: |
-            poetry export --dev --format=requirements.txt --output=requirements.txt
+          poetry export --dev --format=requirements.txt --output=requirements.txt
       - name: Security vulnerabilities scan
         uses: aufdenpunkt/python-safety-check@master
       #----------------------------------------------
